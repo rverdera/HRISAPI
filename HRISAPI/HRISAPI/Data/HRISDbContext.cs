@@ -1,4 +1,6 @@
-﻿namespace HRISAPI.Data;
+﻿using HRISAPI.Models.PDS;
+
+namespace HRISAPI.Data;
 
 public class HRISDbContext : DbContext
 {

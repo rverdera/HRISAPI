@@ -1,7 +1,7 @@
 ﻿
 namespace HRISAPI.Repositories;
 
-public class BaseRepository<T> : IBaseRepository<T> where T : class
+public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
 {
     protected readonly HRISDbContext _context;
     private readonly DbSet<T> _entities;
@@ -11,20 +11,17 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _entities = context.Set<T>();
     }
-    public void Create(T entity)
+    public async Task CreateAsync(T entity)
     {
-        _entities.Add(entity);
+        await _entities.AddAsync(entity);
     }
     public void Update(T entity)
     {
         _entities.Update(entity);
     }
-    public async Task Delete(int id)
+    public async Task DeleteAsync(int id)
     {
-        //var entities = await _entities.FindAsync(id);
-        //var entities = await GetByIdAsync(id);       
         _entities.Remove(await GetByIdAsync(id));
-
     }
     public async Task<IEnumerable<T>> GetAllAsync()
     {
@@ -34,8 +31,15 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
         return await _entities.FindAsync(id);
     }
+    public async Task TagIsDeleted(int id)
+    {
+        var entities = await GetByIdAsync(id);
+        entities.IsDel = false;
+    }
     public async Task<bool> SaveChangesAsync()
     {
         return await _context.SaveChangesAsync().ConfigureAwait(false) > 0;
     }
+
+    
 }

@@ -1,4 +1,6 @@
-﻿namespace HRISAPI.Contracts;
+﻿using HRISAPI.Models.PDS;
+
+namespace HRISAPI.Contracts.PDS;
 
 public interface IPersonRepository : IBaseRepository<PersonModel>
 {

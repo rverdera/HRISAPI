@@ -1,7 +1,4 @@
 ﻿
-
-
-
 namespace HRISAPI.Controllers
 {
     [Route("api/[controller]")]
@@ -16,7 +13,7 @@ namespace HRISAPI.Controllers
         }
 
         [HttpGet("GetAllAsync")]
-        public async Task<ActionResult<IEnumerable<T>>> GetAllAsync() 
+        public async Task<ActionResult<IEnumerable<T>>> GetAllAsync()
         {
             return Ok(await _repository.GetAllAsync());
         }
@@ -32,27 +29,38 @@ namespace HRISAPI.Controllers
             return Ok(entities);
         }
 
-        [HttpPost("Create")]          
-        public async Task<IActionResult> Create([FromBody] T entity)
+        [HttpPost("Create")]
+        public async Task<IActionResult> CreateAsync([FromBody] T entity)
         {
-            _repository.Create(entity);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            _repository.CreateAsync(entity);
             return Ok(await _repository.SaveChangesAsync());
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update([FromBody] T entity)
-        {          
+        public async Task<IActionResult> UpdateAsync([FromBody] T entity)
+        {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             _repository.Update(entity);
+
             return Ok(await _repository.SaveChangesAsync());
         }
 
         [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
-        {  
-            await _repository.Delete(id);
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            await _repository.DeleteAsync(id);
+            return Ok(await _repository.SaveChangesAsync());
+        }
+
+        [HttpPut("TagIsDeleted/{id}")]
+        public async Task<IActionResult> TagIsDeletedAsync(int id)
+        {                 
+            await _repository.TagIsDeleted(id);
             return Ok(await _repository.SaveChangesAsync());
         }
 

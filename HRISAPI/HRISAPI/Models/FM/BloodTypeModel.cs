@@ -3,6 +3,8 @@
 [Table("BloodType",Schema = "FM")]
 public class BloodTypeModel : BaseModel_FM
 {
-    [Key]
+    [Key]    
     public int BloodTypeID { get; set; }
+    
+
 }

@@ -4,6 +4,7 @@ using HRISAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRISAPI.Migrations
 {
     [DbContext(typeof(HRISDbContext))]
-    partial class HRISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220630073730_CreateTablesssssssssss")]
+    partial class CreateTablesssssssssss
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,7 @@ namespace HRISAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BloodTypeID"), 1L, 1);
 
-                    b.Property<DateTime>("DateTimeStamp")
+                    b.Property<DateTime>("DateStamp")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
@@ -59,7 +61,7 @@ namespace HRISAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CivilStatusID"), 1L, 1);
 
-                    b.Property<DateTime>("DateTimeStamp")
+                    b.Property<DateTime>("DateStamp")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Description")
@@ -94,7 +96,7 @@ namespace HRISAPI.Migrations
                     b.Property<int>("CivilStatusID")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateTimeStamp")
+                    b.Property<DateTime>("DateStamp")
                         .HasColumnType("datetime");
 
                     b.Property<string>("ExtensionName")

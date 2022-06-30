@@ -3,6 +3,7 @@
 [Table("CivilStatus", Schema = "FM")]
 public class CivilStatusModel : BaseModel_FM
 {
-    [Key]
+    [Key]    
     public int CivilStatusID { get; set; }
+    
 }

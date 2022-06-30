@@ -1,9 +1,15 @@
-﻿namespace HRISAPI.Models;
+﻿
+
+namespace HRISAPI.Models;
 
 public class BaseModel
-{    
+{
+    
+    [DefaultValue(false)]
     public bool IsDel { get; set; } = false;
-    [StringLength(20)]
+
+    [MaxLength(20)]
     public string UserStamp { get; set; } = string.Empty;
-    public DateTime DateStamp { get; set; } = DateTime.Now;
+    [Column(TypeName = "datetime")]
+    public DateTime DateTimeStamp { get; set; } = DateTime.Now;
 }
