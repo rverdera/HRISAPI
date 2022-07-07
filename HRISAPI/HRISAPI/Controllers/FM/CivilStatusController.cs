@@ -1,8 +1,8 @@
 ﻿namespace HRISAPI.Controllers.FM;
 
-public class CivilStatusController : BaseController<CivilStatusModel>
+public class CivilStatusController : BaseController<CivilStatus>
 {
-    public CivilStatusController(IBaseRepository<CivilStatusModel> repository) : base(repository)
+    public CivilStatusController(IBaseRepository<CivilStatus> repository) : base(repository)
     {
 
     }

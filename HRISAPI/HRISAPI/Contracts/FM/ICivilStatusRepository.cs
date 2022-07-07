@@ -1,5 +1,5 @@
 ﻿namespace HRISAPI.Contracts.FM;
 
-public interface ICivilStatusRepository : IBaseRepository<CivilStatusModel>
+public interface ICivilStatusRepository : IBaseRepository<CivilStatus>
 {
 }

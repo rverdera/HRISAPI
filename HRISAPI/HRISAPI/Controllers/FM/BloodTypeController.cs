@@ -1,9 +1,9 @@
 ﻿namespace HRISAPI.Controllers.FM;
 
-public class BloodTypeController : BaseController<BloodTypeModel>
+public class BloodTypeController : BaseController<BloodType>
 {
 
-    public BloodTypeController(IBaseRepository<BloodTypeModel> repository) : base(repository)
+    public BloodTypeController(IBaseRepository<BloodType> repository) : base(repository)
     {
 
     }

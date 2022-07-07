@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HRISAPI.Migrations
 {
-    public partial class CreateTable : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,8 +24,8 @@ namespace HRISAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IsDel = table.Column<bool>(type: "bit", nullable: false),
                     UserStamp = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    DateStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DateTimeStamp = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,8 +41,8 @@ namespace HRISAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IsDel = table.Column<bool>(type: "bit", nullable: false),
                     UserStamp = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    DateStamp = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    DateTimeStamp = table.Column<DateTime>(type: "datetime", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,25 +60,25 @@ namespace HRISAPI.Migrations
                     MiddleName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     ExtensionName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
-                    CivilStatusModelCivilStatusID = table.Column<int>(type: "int", nullable: false),
-                    BloodTypeModelBloodTypeID = table.Column<int>(type: "int", nullable: false),
+                    CivilStatusID = table.Column<int>(type: "int", nullable: false),
+                    BloodTypeID = table.Column<int>(type: "int", nullable: false),
                     IsDel = table.Column<bool>(type: "bit", nullable: false),
                     UserStamp = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    DateStamp = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateTimeStamp = table.Column<DateTime>(type: "datetime", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Person", x => x.PersonID);
                     table.ForeignKey(
-                        name: "FK_Person_BloodType_BloodTypeModelBloodTypeID",
-                        column: x => x.BloodTypeModelBloodTypeID,
+                        name: "FK_Person_BloodType_BloodTypeID",
+                        column: x => x.BloodTypeID,
                         principalSchema: "FM",
                         principalTable: "BloodType",
                         principalColumn: "BloodTypeID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Person_CivilStatus_CivilStatusModelCivilStatusID",
-                        column: x => x.CivilStatusModelCivilStatusID,
+                        name: "FK_Person_CivilStatus_CivilStatusID",
+                        column: x => x.CivilStatusID,
                         principalSchema: "FM",
                         principalTable: "CivilStatus",
                         principalColumn: "CivilStatusID",
@@ -86,16 +86,16 @@ namespace HRISAPI.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Person_BloodTypeModelBloodTypeID",
+                name: "IX_Person_BloodTypeID",
                 schema: "PDS",
                 table: "Person",
-                column: "BloodTypeModelBloodTypeID");
+                column: "BloodTypeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Person_CivilStatusModelCivilStatusID",
+                name: "IX_Person_CivilStatusID",
                 schema: "PDS",
                 table: "Person",
-                column: "CivilStatusModelCivilStatusID");
+                column: "CivilStatusID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

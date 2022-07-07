@@ -1,13 +1,11 @@
-﻿using HRISAPI.Models.PDS;
-
-namespace HRISAPI.Data;
+﻿namespace HRISAPI.Data;
 
 public class HRISDbContext : DbContext
 {
     public HRISDbContext(DbContextOptions<HRISDbContext> options) : base(options) { }
 
-    public virtual DbSet<PersonModel> Person { get; set; } = null!;
-    public virtual DbSet<BloodTypeModel> BloodType { get; set; } = null!;
-    public virtual DbSet<CivilStatusModel> CivilStatus { get; set; } = null!;
+    public virtual DbSet<Person> Persons { get; set; } = null!;
+    public virtual DbSet<BloodType> BloodTypes { get; set; } = null!; 
+    public virtual DbSet<CivilStatus> CivilStatuses { get; set; } = null!; 
 
-}
+} 

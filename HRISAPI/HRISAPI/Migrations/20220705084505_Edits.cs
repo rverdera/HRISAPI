@@ -4,7 +4,7 @@
 
 namespace HRISAPI.Migrations
 {
-    public partial class CreateTablessssssssss : Migration
+    public partial class Edits : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

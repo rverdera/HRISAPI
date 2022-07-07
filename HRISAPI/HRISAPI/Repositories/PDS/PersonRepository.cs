@@ -3,7 +3,7 @@ using HRISAPI.Models.PDS;
 
 namespace HRISAPI.Repositories.PDS;
 
-public class PersonRepository : BaseRepository<PersonModel>, IPersonRepository
+public class PersonRepository : BaseRepository<Person>, IPersonRepository
 {
     public PersonRepository(HRISDbContext context) : base(context)
     {

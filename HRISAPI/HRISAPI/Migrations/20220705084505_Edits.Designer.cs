@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRISAPI.Migrations
 {
     [DbContext(typeof(HRISDbContext))]
-    [Migration("20220630074258_CreateTablessssssssssss")]
-    partial class CreateTablessssssssssss
+    [Migration("20220705084505_Edits")]
+    partial class Edits
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace HRISAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("HRISAPI.Models.FM.BloodTypeModel", b =>
+            modelBuilder.Entity("HRISAPI.Models.FM.BloodType", b =>
                 {
                     b.Property<int>("BloodTypeID")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace HRISAPI.Migrations
                     b.ToTable("BloodType", "FM");
                 });
 
-            modelBuilder.Entity("HRISAPI.Models.FM.CivilStatusModel", b =>
+            modelBuilder.Entity("HRISAPI.Models.FM.CivilStatus", b =>
                 {
                     b.Property<int>("CivilStatusID")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,7 @@ namespace HRISAPI.Migrations
                     b.ToTable("CivilStatus", "FM");
                 });
 
-            modelBuilder.Entity("HRISAPI.Models.PDS.PersonModel", b =>
+            modelBuilder.Entity("HRISAPI.Models.PDS.Person", b =>
                 {
                     b.Property<int>("PersonID")
                         .ValueGeneratedOnAdd()
@@ -136,16 +136,16 @@ namespace HRISAPI.Migrations
                     b.ToTable("Person", "PDS");
                 });
 
-            modelBuilder.Entity("HRISAPI.Models.PDS.PersonModel", b =>
+            modelBuilder.Entity("HRISAPI.Models.PDS.Person", b =>
                 {
-                    b.HasOne("HRISAPI.Models.FM.BloodTypeModel", "BloodType")
-                        .WithMany()
+                    b.HasOne("HRISAPI.Models.FM.BloodType", "BloodType")
+                        .WithMany("Persons")
                         .HasForeignKey("BloodTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HRISAPI.Models.FM.CivilStatusModel", "CivilStatus")
-                        .WithMany()
+                    b.HasOne("HRISAPI.Models.FM.CivilStatus", "CivilStatus")
+                        .WithMany("Persons")
                         .HasForeignKey("CivilStatusID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -153,6 +153,16 @@ namespace HRISAPI.Migrations
                     b.Navigation("BloodType");
 
                     b.Navigation("CivilStatus");
+                });
+
+            modelBuilder.Entity("HRISAPI.Models.FM.BloodType", b =>
+                {
+                    b.Navigation("Persons");
+                });
+
+            modelBuilder.Entity("HRISAPI.Models.FM.CivilStatus", b =>
+                {
+                    b.Navigation("Persons");
                 });
 #pragma warning restore 612, 618
         }

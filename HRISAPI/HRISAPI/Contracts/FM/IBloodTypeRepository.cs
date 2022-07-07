@@ -1,6 +1,6 @@
 ﻿namespace HRISAPI.Contracts.FM;
 
-public interface IBloodTypeRepository : IBaseRepository<BloodTypeModel>
+public interface IBloodTypeRepository : IBaseRepository<BloodType>
 {
-
+    
 }
