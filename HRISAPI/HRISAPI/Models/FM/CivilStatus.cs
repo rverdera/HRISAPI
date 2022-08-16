@@ -4,8 +4,6 @@
 public class CivilStatus : BaseModel_FM
 {
     [Key]    
-    public int CivilStatusID { get; set; }
-
-    
+    public int CivilStatusID { get; set; }    
     
 }

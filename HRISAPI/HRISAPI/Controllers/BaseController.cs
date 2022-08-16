@@ -1,7 +1,9 @@
 ﻿namespace HRISAPI.Controllers;
 
-[Route("api/[controller]")]
 [ApiController]
+[Route("api/[controller]")]
+
+[Authorize]
 public class BaseController<T> : ControllerBase
 {
     private readonly IBaseRepository<T> _repository;
@@ -11,16 +13,16 @@ public class BaseController<T> : ControllerBase
         _repository = repository;
     }
 
-    [HttpGet("GetAllAsync")]
-    public async Task<ActionResult<IEnumerable<T>>> GetAllAsync()
+    [HttpGet("GetAll")]
+    public async Task<ActionResult<IEnumerable<T>>> GetAll()
     {
-        return Ok(await _repository.GetAllAsync());
+        return Ok(await _repository.GetAll());
     }
 
-    [HttpGet("GetByIdAsync/{id}")]
-    public async Task<ActionResult<T>> GetByIdAsync(int id)
+    [HttpGet("GetById/{id}")]
+    public async Task<ActionResult<T>> GetById(int id)
     {
-        var entity = await _repository.GetByIdAsync(id);
+        var entity = await _repository.GetById(id);
         if (entity == null)
         {
             return NotFound();
@@ -28,38 +30,37 @@ public class BaseController<T> : ControllerBase
         return Ok(entity);
     }
 
-    [HttpPost("CreateAsync")]
-    public async Task<IActionResult> CreateAsync([FromBody] T entity)
+    [HttpPost("Create")]
+    public async Task<IActionResult> Create([FromBody] T entity)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        await _repository.CreateAsync(entity);
+        await _repository.Create(entity);
         return Ok(await _repository.SaveChangesAsync());
     }
 
-    [HttpPut("UpdateAsync/{id}")]
-    public async Task<IActionResult> UpdateAsync(int id, [FromBody] T entity)
+    [HttpPut("Update")]
+    public async Task<IActionResult> Update([FromBody] T entity)
     {
         if (!ModelState.IsValid)
             return BadRequest(ModelState);
 
-        await _repository.UpdateAsync(id,entity);
+        _repository.Update(entity);
         return Ok(await _repository.SaveChangesAsync());
     }
 
     [HttpDelete("Delete/{id}")]
-    public async Task<IActionResult> DeleteAsync(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        await _repository.DeleteAsync(id);
+        await _repository.Delete(id);
         return Ok(await _repository.SaveChangesAsync());
     }
 
-    [HttpPut("TagIsDeleted/{id}")]
-    public async Task<IActionResult> TagIsDeletedAsync(int id)
-    {                 
-        await _repository.TagIsDeleted(id);
+    [HttpPut("TagAsDeleted/{id}")]
+    public async Task<IActionResult> TagAsDeleted(int id)
+    {
+        await _repository.TagAsDeleted(id);
         return Ok(await _repository.SaveChangesAsync());
     }
-
 }

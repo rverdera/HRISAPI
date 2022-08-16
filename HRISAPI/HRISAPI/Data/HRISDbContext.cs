@@ -1,4 +1,6 @@
-﻿namespace HRISAPI.Data;
+﻿
+
+namespace HRISAPI.Data;
 
 public class HRISDbContext : DbContext
 {
@@ -6,6 +8,7 @@ public class HRISDbContext : DbContext
 
     public virtual DbSet<Person> Persons { get; set; } = null!;
     public virtual DbSet<BloodType> BloodTypes { get; set; } = null!; 
-    public virtual DbSet<CivilStatus> CivilStatuses { get; set; } = null!; 
+    public virtual DbSet<CivilStatus> CivilStatuses { get; set; } = null!;
+    public virtual DbSet<User> Users { get; set; } = null!;
 
 } 

@@ -2,6 +2,6 @@
 
 public interface ITokenService
 {
-    string GenerateToken();
+    string GenerateToken(User user);
     bool IsValid(string token);
 }

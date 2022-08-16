@@ -2,4 +2,5 @@
 
 public interface ICivilStatusRepository : IBaseRepository<CivilStatus>
 {
+    void CreateCivilStatus(CivilStatus civilStatus);
 }

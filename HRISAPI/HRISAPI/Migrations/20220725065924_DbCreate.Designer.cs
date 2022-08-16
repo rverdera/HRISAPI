@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRISAPI.Migrations
 {
     [DbContext(typeof(HRISDbContext))]
-    [Migration("20220705084505_Edits")]
-    partial class Edits
+    [Migration("20220725065924_DbCreate")]
+    partial class DbCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,9 @@ namespace HRISAPI.Migrations
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDel")
                         .HasColumnType("bit");
@@ -68,6 +71,9 @@ namespace HRISAPI.Migrations
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsDel")
                         .HasColumnType("bit");
@@ -109,6 +115,9 @@ namespace HRISAPI.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsDel")
                         .HasColumnType("bit");
 
@@ -136,16 +145,67 @@ namespace HRISAPI.Migrations
                     b.ToTable("Person", "PDS");
                 });
 
+            modelBuilder.Entity("HRISAPI.Models.UTILITY.User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
+
+                    b.Property<DateTime>("DateTimeStamp")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDel")
+                        .HasColumnType("bit");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("PasswordResetToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<DateTime?>("ResetTokenExpires")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UserStamp")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("VerificationToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("VerifiedAtTime")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("User", "UTILITY");
+                });
+
             modelBuilder.Entity("HRISAPI.Models.PDS.Person", b =>
                 {
                     b.HasOne("HRISAPI.Models.FM.BloodType", "BloodType")
-                        .WithMany("Persons")
+                        .WithMany()
                         .HasForeignKey("BloodTypeID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HRISAPI.Models.FM.CivilStatus", "CivilStatus")
-                        .WithMany("Persons")
+                        .WithMany()
                         .HasForeignKey("CivilStatusID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -153,16 +213,6 @@ namespace HRISAPI.Migrations
                     b.Navigation("BloodType");
 
                     b.Navigation("CivilStatus");
-                });
-
-            modelBuilder.Entity("HRISAPI.Models.FM.BloodType", b =>
-                {
-                    b.Navigation("Persons");
-                });
-
-            modelBuilder.Entity("HRISAPI.Models.FM.CivilStatus", b =>
-                {
-                    b.Navigation("Persons");
                 });
 #pragma warning restore 612, 618
         }

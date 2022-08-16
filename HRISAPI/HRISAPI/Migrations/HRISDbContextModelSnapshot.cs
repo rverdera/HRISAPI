@@ -94,10 +94,10 @@ namespace HRISAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PersonID"), 1L, 1);
 
-                    b.Property<int>("BloodTypeID")
+                    b.Property<int?>("BloodTypeID")
                         .HasColumnType("int");
 
-                    b.Property<int>("CivilStatusID")
+                    b.Property<int?>("CivilStatusID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateTimeStamp")
@@ -140,36 +140,73 @@ namespace HRISAPI.Migrations
 
                     b.HasIndex("CivilStatusID");
 
-                    b.ToTable("Person", "PDS");
+                    b.ToTable("Person", "PIM");
+                });
+
+            modelBuilder.Entity("HRISAPI.Models.UTILITY.User", b =>
+                {
+                    b.Property<int>("UserID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
+
+                    b.Property<DateTime>("DateTimeStamp")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDel")
+                        .HasColumnType("bit");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("PasswordResetToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<DateTime?>("ResetTokenExpires")
+                        .HasColumnType("datetime");
+
+                    b.Property<string>("UserStamp")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("VerificationToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("VerifiedAtTime")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("UserID");
+
+                    b.ToTable("User", "UTILITY");
                 });
 
             modelBuilder.Entity("HRISAPI.Models.PDS.Person", b =>
                 {
                     b.HasOne("HRISAPI.Models.FM.BloodType", "BloodType")
-                        .WithMany("Persons")
-                        .HasForeignKey("BloodTypeID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("BloodTypeID");
 
                     b.HasOne("HRISAPI.Models.FM.CivilStatus", "CivilStatus")
-                        .WithMany("Persons")
-                        .HasForeignKey("CivilStatusID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("CivilStatusID");
 
                     b.Navigation("BloodType");
 
                     b.Navigation("CivilStatus");
-                });
-
-            modelBuilder.Entity("HRISAPI.Models.FM.BloodType", b =>
-                {
-                    b.Navigation("Persons");
-                });
-
-            modelBuilder.Entity("HRISAPI.Models.FM.CivilStatus", b =>
-                {
-                    b.Navigation("Persons");
                 });
 #pragma warning restore 612, 618
         }

@@ -2,12 +2,12 @@
 
 public interface IBaseRepository<T>
 {
-    Task<IEnumerable<T>> GetAllAsync();
-    Task<T> GetByIdAsync(object id);   
-    Task CreateAsync(T entity);
-    Task UpdateAsync(object id, object entity);
-    Task TagIsDeleted(object id);
-    Task DeleteAsync(object id);
+    Task<IEnumerable<T>> GetAll();
+    Task<T?> GetById(int id);
+    Task Create(T entity);
+    void Update(T entity);
+    Task TagAsDeleted(int id);
+    Task Delete(int id);
 
 
     Task<bool> SaveChangesAsync();

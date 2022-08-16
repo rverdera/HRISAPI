@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HRISAPI.Migrations
 {
-    public partial class Initial : Migration
+    public partial class DbCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,6 +15,9 @@ namespace HRISAPI.Migrations
             migrationBuilder.EnsureSchema(
                 name: "PDS");
 
+            migrationBuilder.EnsureSchema(
+                name: "UTILITY");
+
             migrationBuilder.CreateTable(
                 name: "BloodType",
                 schema: "FM",
@@ -22,6 +25,7 @@ namespace HRISAPI.Migrations
                 {
                     BloodTypeID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDel = table.Column<bool>(type: "bit", nullable: false),
                     UserStamp = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     DateTimeStamp = table.Column<DateTime>(type: "datetime", nullable: false),
@@ -39,6 +43,7 @@ namespace HRISAPI.Migrations
                 {
                     CivilStatusID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDel = table.Column<bool>(type: "bit", nullable: false),
                     UserStamp = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     DateTimeStamp = table.Column<DateTime>(type: "datetime", nullable: false),
@@ -47,6 +52,30 @@ namespace HRISAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CivilStatus", x => x.CivilStatusID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                schema: "UTILITY",
+                columns: table => new
+                {
+                    UserID = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    VerificationToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    VerifiedAtTime = table.Column<DateTime>(type: "datetime", nullable: true),
+                    PasswordResetToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ResetTokenExpires = table.Column<DateTime>(type: "datetime", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    IsDel = table.Column<bool>(type: "bit", nullable: false),
+                    UserStamp = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    DateTimeStamp = table.Column<DateTime>(type: "datetime", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.UserID);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,6 +91,7 @@ namespace HRISAPI.Migrations
                     ExtensionName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     CivilStatusID = table.Column<int>(type: "int", nullable: false),
                     BloodTypeID = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsDel = table.Column<bool>(type: "bit", nullable: false),
                     UserStamp = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     DateTimeStamp = table.Column<DateTime>(type: "datetime", nullable: false)
@@ -103,6 +133,10 @@ namespace HRISAPI.Migrations
             migrationBuilder.DropTable(
                 name: "Person",
                 schema: "PDS");
+
+            migrationBuilder.DropTable(
+                name: "User",
+                schema: "UTILITY");
 
             migrationBuilder.DropTable(
                 name: "BloodType",

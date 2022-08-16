@@ -2,10 +2,5 @@
 
 public class BloodTypeController : BaseController<BloodType>
 {
-
-    public BloodTypeController(IBaseRepository<BloodType> repository) : base(repository)
-    {
-
-    }
-
+    public BloodTypeController(IBaseRepository<BloodType> repository) : base(repository) { }
 }
