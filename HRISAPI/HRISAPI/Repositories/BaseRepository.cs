@@ -9,7 +9,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
     public BaseRepository(HRISDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
-        _table = context.Set<T>();
+        _table = context.Set<T>();       
     }
 
     public async Task Create(T entity)
@@ -24,7 +24,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
 
     public async Task<T?> GetById(int id)
     {     
-        return await _table.FindAsync(id);  
+        return await _table.FindAsync(id);
     }
 
     public void Update(T entity)
@@ -50,9 +50,6 @@ public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
 
     public async Task<bool> SaveChangesAsync()
     {
-        return await _context.SaveChangesAsync().ConfigureAwait(false) > 0;        
-
+        return await _context.SaveChangesAsync().ConfigureAwait(false) > 0;
     }
-
-
 }

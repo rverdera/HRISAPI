@@ -18,7 +18,7 @@ public class Person : BaseModel
     [MaxLength(150)]
     public string ExtensionName { get; set; } = string.Empty;
 
-    public CivilStatus? CivilStatus { get; set; } 
+    public CivilStatus? CivilStatus { get; set; }
     public BloodType? BloodType { get; set; }
 
 }

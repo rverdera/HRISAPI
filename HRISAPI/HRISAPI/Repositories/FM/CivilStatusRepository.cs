@@ -18,6 +18,6 @@ public class CivilStatusRepository : BaseRepository<CivilStatus>, ICivilStatusRe
                 new SqlParameter("@IsActive",civilStatus.IsActive)
             };
 
-        _context.Database.ExecuteSqlRaw("[dbo].[CivilStatusGetByID] @Description,@UserStamp,@IsActive", param);
+        _context.Database.ExecuteSqlRaw("[dbo].[CivilStatusGetByID] @Description,@UserStamp,@IsActive", param);        
     }
 }
